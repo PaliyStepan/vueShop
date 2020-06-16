@@ -1,15 +1,24 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
+import Vue from 'vue';
+import Vuex from 'vuex';
 
-Vue.use(Vuex)
+import apiRequest from "./actions/api"
+import commonActions from "./actions";
+import getters from "./getters";
+import mutations from "./mutations";
+
+const actions = {...commonActions, ...apiRequest };
+
+Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
+    products: [],
+    cart: []
   },
-  mutations: {
-  },
-  actions: {
-  },
-  modules: {
-  }
-})
+  mutations,
+  actions,
+  getters
+});
+
+
+
