@@ -11,7 +11,7 @@
             <p>
                 <i>Цена</i>
                 <strong>{{cart_item_data.price}}</strong>
-
+                <i class="fa fa-rub" aria-hidden="true"></i>
             </p>
             <p>
                 <i>Артикул</i>
@@ -22,8 +22,11 @@
         </div>
         <div class="cart-item__amount">
             <div class="cart-item__amount-inner">
-                <button class="btn cart-item__control"
-                     @click="subItem"
+                <button
+                    class="btn cart-item__control"
+                    @click="subItem"
+                    :class="{ disabled: cart_item_data.quantity < 2 }"
+
                 >
                     -
                 </button>
@@ -59,7 +62,7 @@
         },
         methods: {
             subItem(){
-                this.$emit('subtraction')
+                this.$emit('subtraction');
             },
             addItem(){
                 this.$emit('add')
@@ -100,6 +103,10 @@
         justify-content: center;
         margin: 0 15px;
         padding: 0;
+        &.disabled {
+            background-color: #ddd;
+            cursor: not-allowed	;
+        }
     }
 
     .cart-item__info{
@@ -107,6 +114,9 @@
             i {
                 margin-right: 10px;
             }
+        }
+        .fa {
+            margin-left: 10px;
         }
     }
 

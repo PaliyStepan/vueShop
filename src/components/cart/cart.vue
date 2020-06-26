@@ -16,7 +16,7 @@
         ></cartItem>
         <div class="cart__total">
             <p>Total:</p>
-            <p>{{cartTotalCost}}</p>
+            <p>{{cartTotalCost | toLocalString}} <i class="fa fa-rub" aria-hidden="true"></i></p>
         </div>
     </div>
 </template>
@@ -54,8 +54,6 @@
               } else {
                   return 0
               }
-
-
           }
         },
         methods: {
@@ -73,6 +71,11 @@
             deleteFormCart(index){
                 this.DELETE_FROM_CART(index)
             }
+        },
+        filters: {
+            toLocalString(value) {
+                return value.toLocaleString()
+            }
         }
     }
 </script>
@@ -80,6 +83,7 @@
 <style lang="scss">
     .cart {
         margin-bottom: 180px;
+        padding: 0 15px;
     }
     .back__catalog {
         color: $dark;

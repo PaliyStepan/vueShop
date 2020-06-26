@@ -1,5 +1,11 @@
 <template>
     <div class="catalog">
+
+        <Notification
+            :messages="messages"
+            :timeout="3500"
+        />
+
         <h2 class="sec__title">Catalog</h2>
         <router-link :to="{name: 'Cart', params:{cart_data: CART}}" class="catalog__cart">
             <i class="fa fa-shopping-cart" aria-hidden="true"></i>
@@ -12,28 +18,6 @@
                 @select="sortByCategories"
             >
             </Select>
-            <div class="range-slider">
-                <input
-                    type="range"
-                    min="0"
-                    max="1000"
-                    step="10"
-                    v-model.number="minPrice"
-                    @change="setRangeSliders"
-                >
-                <input
-                    type="range"
-                    min="0"
-                    max="1000"
-                    step="10"
-                    v-model.number="maxPrice"
-                    @change="setRangeSliders"
-                >
-            </div>
-        </div>
-        <div class="range-values">
-            <p>Min: {{minPrice}}</p>
-            <p>Max: {{maxPrice}}</p>
         </div>
         <div class="catalog-list">
             <catalogItem
@@ -50,6 +34,7 @@
     import catalogItem from './catalog-item';
     import {mapActions, mapGetters} from 'vuex';
     import Select from '../utils/select';
+    import Notification from '../utils/notification'
 
     export default {
         name: "catalog",
@@ -63,7 +48,8 @@
                 selected: 'Все',
                 sortedProducts: [],
                 minPrice: 0,
-                maxPrice: 1000
+                maxPrice: 1000,
+                messages: []
             }
         },
         computed: {
@@ -81,7 +67,8 @@
         },
         components: {
             catalogItem,
-            Select
+            Select,
+            Notification,
         },
         methods: {
             ...mapActions([
@@ -90,34 +77,28 @@
             ]),
             addToCart(data){
                 this.ADD_TO_CART(data)
+                    .then(()=>{
+                        let timeStamp = Date.now().toLocaleString();
+                        this.messages.unshift(
+                            {
+                                name:'Товар добавлен в корзину', id: timeStamp
+                            }
+                        )
+                    })
             },
-            // sortByCategories(category){
             sortByCategories(category){
-                // this.sortedProducts = [];
-                // let vm = this;
-                // this.PRODUCTS.map(function (item) {
-                //     if (item.category === category.name){
-                //         vm.sortedProducts.push(item)
-                //     }
-                // });
-                // this.selected = category.name
-
+                this.sortedProducts = [];
+                let vm = this;
+                this.PRODUCTS.map(function (item) {
+                    if (item.category === category.name){
+                        vm.sortedProducts.push(item)
+                    }
+                });
+                this.selected = category.name
             },
-            setRangeSliders(){
-                if (this.minPrice > this.maxPrice){
-                    let tmp = this.maxPrice;
-                    this.maxPrice = this.minPrice;
-                    this.minPrice = tmp;
-                }
-            }
         },
         mounted() {
             this.GET_PRODUCTS()
-                .then((response) =>{
-                    if (response.data) {
-                        console.log('Data get')
-                    }
-                })
         }
     }
 </script>
@@ -129,7 +110,8 @@
     .catalog-list {
         display: flex;
         flex-wrap: wrap;
-        justify-content: space-between;
+        margin: 0 -15px;
+        width: auto;
     }
     .catalog__cart {
         border: 1px solid #fff;
@@ -145,6 +127,7 @@
         align-items: center;
         justify-content: center;
         transition: all 0.2s ease;
+        z-index: 3;
         .fa {
             font-size: 20px;
         }
@@ -170,24 +153,14 @@
         }
     }
 
-    .range-slider {
-        width: 200px;
-        margin: 0 16px;
-        text-align: center;
-        position: relative;
-    }
-    .range-slider svg, .range-slider  input[type=range] {
-        position: absolute;
-        left: 0;
-        bottom: 0;
-        z-index: 2;
+    .filters {
+        margin-bottom: 50px;
     }
 
-    input[type=range]::-webkit-slider-thumb{
-        z-index: 2;
-        position: relative;
-        top: 2px;
-        margin-top: -7px;
+    @media only screen and (max-width: 767px){
+        .catalog-list {
+            margin: 0 -8px;
+        }
     }
 
 

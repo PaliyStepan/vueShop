@@ -13,5 +13,4 @@ export default {
     SUB_CART_ITEM({commit},index){
         commit('SUBTRACTION', index)
     }
-
 }

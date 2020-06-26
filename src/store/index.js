@@ -13,7 +13,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     products: [],
-    cart: []
+    cart: [],
   },
   mutations,
   actions,
