@@ -62,6 +62,7 @@
         bottom: 0
         background-color: rgba(#000, .6)
         overflow: auto
+        z-index: 4
         &__close
             width: 30px
             height: 30px
