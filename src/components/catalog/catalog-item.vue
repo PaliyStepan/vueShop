@@ -7,7 +7,7 @@
                 rightBtnTitle="add to cart"
                 @rightBtnAction="addToCart"
             >
-                <img :src=" require('@/assets/images/' + product_data.image) " alt="img">
+                <img :src="product_data.image" alt="img">
                 <p class="catalog-item__name">{{product_data.name}}</p>
                 <p class="catalog-item__price rubles">
                     {{product_data.price}}
@@ -15,7 +15,7 @@
                 </p>
             </Popup>
 
-            <img :src=" require('@/assets/images/' + product_data.image) " alt="img">
+            <img :src="product_data.image" alt="img">
             <p class="catalog-item__name">{{product_data.name}}</p>
             <p class="catalog-item__price rubles">
                 {{product_data.price}}

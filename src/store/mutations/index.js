@@ -28,5 +28,8 @@ export default {
     },
     ADD:(state, index) =>{
         state.cart[index].quantity++
-    }
+    },
+    IS_LOADING_TOGGLE:(state) =>{
+        state.isLoading = !state.isLoading
+    },
 }

@@ -1,31 +1,32 @@
 <template>
     <div class="catalog">
-
         <Notification
             :messages="messages"
             :timeout="3500"
         />
-
         <h2 class="sec__title">Catalog</h2>
         <router-link :to="{name: 'Cart', params:{cart_data: CART}}" class="catalog__cart">
             <i class="fa fa-shopping-cart" aria-hidden="true"></i>
             <span>{{CART.length}}</span>
         </router-link>
-        <div class="filters">
-            <Select
-                :selected="selected"
-                :options="categories"
-                @select="sortByCategories"
-            >
-            </Select>
-        </div>
-        <div class="catalog-list">
-            <catalogItem
-                v-for="product in filterProducts"
-                :key="product.article"
-                :product_data="product"
-                @addToCart="addToCart"
-            />
+        <Loader v-if="LOADING" />
+        <div v-else class="catalog__inner">
+            <div class="filters">
+                <Select
+                    :selected="selected"
+                    :options="categories"
+                    @select="sortByCategories"
+                >
+                </Select>
+            </div>
+            <div class="catalog-list">
+                <catalogItem
+                    v-for="product in filterProducts"
+                    :key="product.article"
+                    :product_data="product"
+                    @addToCart="addToCart"
+                />
+            </div>
         </div>
     </div>
 </template>
@@ -35,6 +36,7 @@
     import {mapActions, mapGetters} from 'vuex';
     import Select from '../utils/select';
     import Notification from '../utils/notification'
+    import Loader from "../Loader";
 
     export default {
         name: "catalog",
@@ -55,7 +57,8 @@
         computed: {
           ...mapGetters([
               'PRODUCTS',
-              'CART'
+              'CART',
+              'LOADING'
           ]),
             filterProducts(){
               if (this.sortedProducts.length){
@@ -69,6 +72,7 @@
             catalogItem,
             Select,
             Notification,
+            Loader
         },
         methods: {
             ...mapActions([

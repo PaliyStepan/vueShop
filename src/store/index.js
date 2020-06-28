@@ -14,6 +14,7 @@ export default new Vuex.Store({
   state: {
     products: [],
     cart: [],
+    isLoading: false
   },
   mutations,
   actions,

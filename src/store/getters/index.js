@@ -4,5 +4,8 @@ export default {
     },
     CART(state){
         return state.cart
+    },
+    LOADING(state){
+        return state.isLoading
     }
 }
