@@ -37,7 +37,6 @@
 
 <script>
     import Popup from "../utils/popup";
-    import {mapActions} from 'vuex';
     export default {
         name: "catalog-item",
         props: {
@@ -57,17 +56,16 @@
             }
         },
         methods: {
-            ...mapActions([
-                'FIX_HTML',
-            ]),
             addToCart(val) {
                this.$emit('addToCart', this.product_data)
             },
             showPop(){
                 this.isPopupOpen = true;
+                document.querySelector('html').classList.add('fixed')
             },
             closePopup(){
                 this.isPopupOpen = false;
+                document.querySelector('html').classList.remove('fixed')
             },
         },
         mounted() {
