@@ -60,6 +60,7 @@
 <style scoped lang="sass">
     .select
         position: relative
+        z-index: 2
         &__wrap
             justify-content: center
             display: flex
