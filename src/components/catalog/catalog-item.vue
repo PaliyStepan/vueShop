@@ -1,5 +1,7 @@
 <template>
-    <div class="catalog-item">
+    <div class="catalog-item"
+        :class="{empty: !product_data.available}"
+    >
         <div class="catalog-item__inner">
             <Popup
                 v-if="isPopupOpen"
@@ -15,12 +17,14 @@
                 </p>
             </Popup>
 
-            <img :src="product_data.image" alt="img">
-            <p class="catalog-item__name">{{product_data.name}}</p>
-            <p class="catalog-item__price rubles">
-                {{product_data.price}}
-                <i class="fa fa-rub" aria-hidden="true"></i>
-            </p>
+            <div class="catalog-item__link">
+                <img :src="product_data.image" alt="img">
+                <p class="catalog-item__name">{{product_data.name}}</p>
+                <p class="catalog-item__price rubles">
+                    {{product_data.price}}
+                    <i class="fa fa-rub" aria-hidden="true"></i>
+                </p>
+            </div>
             <button
                 class="btn btn_reverse"
                 @click="showPop"
@@ -92,6 +96,31 @@
         }
         .btn {
             min-width: 120px;
+        }
+        &.empty{
+            .catalog-item__inner {
+                position: relative;
+                &:before{
+                    position: absolute;
+                    content: 'Временно нет';
+                    top: 0;
+                    right: 0;
+                    background-color: $green;
+                    padding: 15px;
+                    -webkit-border-radius: 2px;
+                    -moz-border-radius: 2px;
+                    border-radius: 4px;
+                    z-index: 1;
+                }
+            }
+            .btn {
+                opacity: 0.4;
+                pointer-events: none;
+            }
+            .catalog-item__link{
+                opacity: 0.4;
+                pointer-events: none;
+            }
         }
     }
 
