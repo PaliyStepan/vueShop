@@ -48,4 +48,12 @@ html {
 .fixed {
   height: 100vh;
   overflow: hidden;
+  padding-right: 17px;
+}
+
+
+@media only screen and (max-width: 991px){
+  .fixed {
+    padding-right: 0;
+  }
 }

@@ -72,7 +72,7 @@
         position: fixed
         top: 50px
         right: 40px
-        z-index: 2
+        z-index: 10
         &__list
             display: flex
             flex-direction: column

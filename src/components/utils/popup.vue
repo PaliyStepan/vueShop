@@ -1,28 +1,30 @@
 <template>
-    <div class="popup" ref="popup">
-        <div class="popup__inner">
-            <div class="popup__header">
-                <span class="popup__close">
-                    <i class="fa fa-times"
-                       @click="closePopup"
-                    ></i>
-                </span>
-            </div>
-            <div class="popup__content">
-                <slot></slot>
-            </div>
-            <div class="popup__footer">
-                <button
-                    class="btn btn_reverse"
-                    @click="closePopup"
-                >Close</button>
-                <button
-                    class="btn"
-                    @click="rightBtnAction"
-                >{{rightBtnTitle}}</button>
+    <transition name="fade" appear>
+        <div class="popup" ref="popup">
+            <div class="popup__inner">
+                <div class="popup__header">
+                    <span class="popup__close">
+                        <i class="fa fa-times"
+                           @click="closePopup"
+                        ></i>
+                    </span>
+                </div>
+                <div class="popup__content">
+                    <slot></slot>
+                </div>
+                <div class="popup__footer">
+                    <button
+                        class="btn btn_reverse"
+                        @click="closePopup"
+                    >Close</button>
+                    <button
+                        class="btn"
+                        @click="rightBtnAction"
+                    >{{rightBtnTitle}}</button>
+                </div>
             </div>
         </div>
-    </div>
+    </transition>
 </template>
 
 <script>
@@ -54,6 +56,15 @@
 </script>
 
 <style scoped lang="sass">
+
+    .fade-enter-active, .fade-leave-active
+        transition: opacity .2s ease
+    .fade-enter, .fade-leave-active
+        opacity: 0
+
+
+
+
     .popup
         position: fixed
         top: 0
@@ -106,4 +117,5 @@
                     width: 95%
                     top: 20px
                     transform: translateX(-50%)
+
 </style>

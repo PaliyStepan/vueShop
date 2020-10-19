@@ -2,8 +2,10 @@
     <div class="wrapper">
         <h1>{{title}}</h1>
         <keep-alive>
-            <router-view>
-            </router-view>
+           <transition name="show" mode="out-in">
+                <router-view>
+                </router-view>
+            </transition>
         </keep-alive>
     </div>
 </template>
@@ -35,6 +37,26 @@
     }
     h1 {
         text-align: center;
+    }
+
+
+    .show-enter-active{
+        animation: showIn 0.01s;
+    }
+
+
+    .show-leave-active{
+        animation: showOut 0.05s;
+    }
+
+    @keyframes showOut{
+        from{opacity: 1;}
+        to{opacity: 0;}
+    }
+
+    @keyframes showIn{
+        from{opacity: 0;}
+        to{opacity: 1;}
     }
 
 </style>
